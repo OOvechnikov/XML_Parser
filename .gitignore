@@ -23,7 +23,16 @@
 hs_err_pid*
 
 # User-specific stuff
-.idea/*
+*/.idea/*
+.idea/
 
 # Target folder
-target/*
+*/target/*
+
+# Out folders
+*/out/*
+
+#JavaRushFiles
+JavaRush/JavaRushTasks/*properties
+JavaRush/JavaRushTasks/*iml
+JavaRush/JavaRushTasks/*png
