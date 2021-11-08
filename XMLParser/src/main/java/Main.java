@@ -1,23 +1,19 @@
 import org.xml.sax.SAXException;
+import saxParser.Parser;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
-        ArgsParser argsParser = new ArgsParser(args);
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        XMLHandler handler = new XMLHandler();
         try {
-            SAXParser parser = factory.newSAXParser();
-            parser.parse(argsParser.getFileName(), handler);
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
+            List<String> result = new Parser(args).getResult();
+            for (String line : result) {
+                System.out.println(line);
+            }
+        } catch (ParserConfigurationException | IOException | SAXException e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println(ResultBuilder.getResult(handler.getFileNameBuilder().toString(), argsParser));
     }
-
 }

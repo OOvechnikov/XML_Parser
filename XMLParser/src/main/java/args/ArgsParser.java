@@ -1,3 +1,7 @@
+package args;
+
+import exeption.ArgumentException;
+
 import java.io.File;
 
 public class ArgsParser {
@@ -5,13 +9,12 @@ public class ArgsParser {
     private String fileName = "";
     private String mode = "";
     private String template = "";
-    private boolean simpleParse;
 
     public ArgsParser(String[] args) {
         parseArgs(args);
     }
 
-    private void parseArgs(String[] args) throws ArgumentException{
+    private void parseArgs(String[] args) throws ArgumentException {
         if (args.length == 2 || args.length == 4) {
             if (!args[0].equals("-f")) {
                 throw new ArgumentException("first arg must be '-f'");
@@ -22,10 +25,12 @@ public class ArgsParser {
             }
 
             if (args.length == 4) {
-                simpleParse = true;
                 mode = args[2];
                 if (mode.equals("-e") || mode.equals("-s") || mode.equals("-S")) {
                     template = args[3];
+                    if (mode.equals("-s") && !template.matches("\\*\\.[a-z]+")) {
+                        throw new ArgumentException("Template for simple search must be like '*.java'");
+                    }
                 } else {
                     throw new ArgumentException("third arg must be:\n'-e' - exact search (file-1498940214.xhtml)\n'-s' - simple search (*.java)\n'-S' - extended search (regex)");
                 }
@@ -43,10 +48,6 @@ public class ArgsParser {
 
     public String getTemplate() {
         return template;
-    }
-
-    public boolean isSimpleParse() {
-        return simpleParse;
     }
 
 }
