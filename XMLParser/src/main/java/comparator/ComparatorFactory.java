@@ -4,7 +4,7 @@ import args.ArgsParser;
 
 public class ComparatorFactory {
 
-    private ArgsParser argsParser;
+    private final ArgsParser argsParser;
 
     public ComparatorFactory(ArgsParser argsParser) {
         this.argsParser = argsParser;
