@@ -10,14 +10,14 @@ public class ComparatorFactory {
         this.argsParser = argsParser;
     }
 
-    public AbstractComparator build() {
-        switch (argsParser.getMode()) {
-            case "": return new FullComparator(argsParser.getTemplate());
-            case "-e": return new ExactComparator(argsParser.getTemplate());
-            case "-s": return new SimpleComparator(argsParser.getTemplate());
-            case "-S": return new ExtendedComparator(argsParser.getTemplate());
+
+    public Comparator build() {
+        switch (argsParser.getSearchType()) {
+            case FULL: return new FullComparator();
+            case EXACT: return new ExactComparator(argsParser.getTemplate());
+            case SIMPLE: return new SimpleComparator(argsParser.getTemplate());
+            case EXTENDED: return new ExtendedComparator(argsParser.getTemplate());
             default: return null;
         }
     }
-
 }

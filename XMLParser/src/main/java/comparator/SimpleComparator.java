@@ -1,14 +1,18 @@
 package comparator;
 
-public class SimpleComparator extends AbstractComparator {
+import constant.Constants;
+
+public class SimpleComparator extends Comparator {
 
     public SimpleComparator(String template) {
         super(template);
     }
 
+
     @Override
     public boolean compare(String fileName) {
-        return fileName.substring(fileName.lastIndexOf('.')).equals(super.getTemplate().substring(super.getTemplate().lastIndexOf('.')));
+        String fileExtension = fileName.substring(fileName.lastIndexOf(Constants.DOT));
+        String templateExtension = super.getTemplate().substring(super.getTemplate().lastIndexOf(Constants.DOT));
+        return fileExtension.equals(templateExtension);
     }
-
 }

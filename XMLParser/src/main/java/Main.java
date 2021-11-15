@@ -9,6 +9,10 @@ public class Main {
     public static void main(String[] args) {
         try {
             List<String> result = new Parser(args).getResult();
+            if (result == null) {
+                System.out.println("Nothing found");
+                return;
+            }
             for (String line : result) {
                 System.out.println(line);
             }

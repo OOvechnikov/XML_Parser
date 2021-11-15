@@ -1,6 +1,6 @@
 package saxParser;
 
-import comparator.AbstractComparator;
+import comparator.Comparator;
 import constant.Constants;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -10,16 +10,17 @@ import java.util.List;
 
 public class XMLHandler extends DefaultHandler {
 
-    private final AbstractComparator comparator;
+    private final Comparator comparator;
     private final List<String> result = new ArrayList<>();
     private List<String> directoryList = new ArrayList<>();
     private boolean isFile = false;
     private boolean isName = false;
     private boolean isDirectory = false;
 
-    public XMLHandler(AbstractComparator comparator) {
+    public XMLHandler(Comparator comparator) {
         this.comparator = comparator;
     }
+
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
@@ -44,7 +45,7 @@ public class XMLHandler extends DefaultHandler {
                     if (i == 0) {
                         directoryName = directoryList.get(0);
                     } else {
-                        directoryName += directoryList.get(i) + "/";
+                        directoryName += directoryList.get(i) + Constants.SLASH;
                     }
                 }
                 result.add(directoryName + fileName);
@@ -69,5 +70,4 @@ public class XMLHandler extends DefaultHandler {
     public List<String> getResult() {
         return result;
     }
-
 }

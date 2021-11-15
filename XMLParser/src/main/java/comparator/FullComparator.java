@@ -1,14 +1,9 @@
 package comparator;
 
-public class FullComparator extends AbstractComparator {
-
-    public FullComparator(String template) {
-        super(template);
-    }
+public class FullComparator extends Comparator {
 
     @Override
     public boolean compare(String fileName) {
         return true;
     }
-
 }

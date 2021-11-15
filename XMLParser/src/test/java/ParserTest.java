@@ -30,7 +30,7 @@ public class ParserTest extends TestCase {
     }
 
     public void testExactSearchFound() throws ParserConfigurationException, IOException, SAXException {
-        args = new String[] {"-f", "src/main/resources/example.xml", "-e", "file-301.xhtml"};
+        args = new String[] {"-f", "src/main/resources/example.xml", "-s", "file-301.xhtml"};
         expected = new ArrayList<>();
         expected.add("/dir-20/dir-30/file-301.xhtml");
 
@@ -39,8 +39,8 @@ public class ParserTest extends TestCase {
     }
 
     public void testExactSearchNotFound() throws ParserConfigurationException, IOException, SAXException {
-        args = new String[] {"-f", "src/main/resources/example.xml", "-e", "file.xhtml"};
-        expected = new ArrayList<>();
+        args = new String[] {"-f", "src/main/resources/example.xml", "-s", "file.xhtml"};
+        expected = null;
 
         List<String> actual = new Parser(args).getResult();
         assertEquals(expected, actual);
@@ -60,7 +60,7 @@ public class ParserTest extends TestCase {
 
     public void testSimpleSearchIncorrectTemplate() throws ParserConfigurationException, IOException, SAXException {
         args = new String[] {"-f", "src/main/resources/example.xml", "-s", "words.java"};
-        expected = new ArrayList<>();
+        expected = null;
 
         List<String> actual = new Parser(args).getResult();
         assertEquals(expected, actual);
@@ -68,7 +68,7 @@ public class ParserTest extends TestCase {
 
     public void testSimpleSearchNotFound() throws ParserConfigurationException, IOException, SAXException {
         args = new String[] {"-f", "src/main/resources/example.xml", "-s", "*.exe"};
-        expected = new ArrayList<>();
+        expected = null;
 
         List<String> actual = new Parser(args).getResult();
         assertEquals(expected, actual);
@@ -76,7 +76,7 @@ public class ParserTest extends TestCase {
 
     public void testExtendedSearchFound1() throws ParserConfigurationException, IOException, SAXException {
         args = new String[] {"-f", "src/main/resources/example.xml", "-S", ".*?[a-z]{4}-\\\\d+\\.[a-z]+"};
-        expected = new ArrayList<>();
+        expected = null;
 
         List<String> actual = new Parser(args).getResult();
         assertEquals(expected, actual);
@@ -114,7 +114,7 @@ public class ParserTest extends TestCase {
 
     public void testExtendedSearchNotFound() throws ParserConfigurationException, IOException, SAXException {
         args = new String[] {"-f", "src/main/resources/example.xml", "-S", "...\\.+"};
-        expected = new ArrayList<>();
+        expected = null;
 
         List<String> actual = new Parser(args).getResult();
         assertEquals(expected, actual);

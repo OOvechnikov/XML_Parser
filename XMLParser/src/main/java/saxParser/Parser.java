@@ -4,7 +4,6 @@ import args.ArgsParser;
 import comparator.ComparatorFactory;
 import exeption.ArgumentException;
 import org.xml.sax.SAXException;
-import saxParser.XMLHandler;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
@@ -35,7 +34,7 @@ public class Parser {
 
     public List<String> getResult() {
         if (result.size() == 0) {
-            System.out.println("Nothing found");
+            return null;
         }
         return result;
     }
