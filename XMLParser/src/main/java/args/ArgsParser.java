@@ -7,43 +7,42 @@ import java.io.File;
 
 public class ArgsParser {
 
-    private String fileName = "";
-    private String template = "";
-    private Constants.SearchType searchType;
+    private final ArgsStorage argsStorage;
 
     public ArgsParser(String[] args) {
+        argsStorage = new ArgsStorage();
         parseArgs(args);
     }
 
 
     private void parseArgs(String[] args) throws ArgumentException {
         if (args.length == 2) {
-            fileName = args[1];
-            if (!new File(args[1]).exists()) {
-                throw new ArgumentException("file: " + args[1] + " doesn't exist.");
+            argsStorage.setFileName(args[1]);
+            if (!new File(argsStorage.getFileName()).exists()) {
+                throw new ArgumentException("file: " + argsStorage.getFileName() + " doesn't exist.");
             }
             if (!args[0].equals(Constants.FILE_KEY_ARG)) {
                 throw new ArgumentException("first arg must be '" + Constants.FILE_KEY_ARG + "'");
             }
-            searchType = Constants.SearchType.FULL;
+            argsStorage.setSearchType(Constants.SearchType.FULL);
         } else if (args.length == 4) {
-            fileName = args[1];
-            if (!new File(args[1]).exists()) {
-                throw new ArgumentException("file: " + args[1] + " doesn't exist.");
+            argsStorage.setFileName(args[1]);
+            if (!new File(argsStorage.getFileName()).exists()) {
+                throw new ArgumentException("file: " + argsStorage.getFileName() + " doesn't exist.");
             }
             switch (args[2]) {
                 case Constants.EXACT_AND_SIMPLE_SEARCH_KEY_ARG: {
-                    template = args[3];
-                    if (template.matches("\\*\\.[a-z]+")) {
-                        searchType = Constants.SearchType.SIMPLE;
+                    argsStorage.setTemplate(args[3]);
+                    if (argsStorage.getTemplate().matches("\\*\\.[a-z]+")) {
+                        argsStorage.setSearchType(Constants.SearchType.SIMPLE);
                     } else {
-                        searchType = Constants.SearchType.EXACT;
+                        argsStorage.setSearchType(Constants.SearchType.EXACT);
                     }
                     break;
                 }
                 case Constants.EXTENDED_SEARCH_KEY_ARG: {
-                    searchType = Constants.SearchType.EXTENDED;
-                    template = args[3];
+                    argsStorage.setSearchType(Constants.SearchType.EXTENDED);
+                    argsStorage.setTemplate(args[3]);
                     break;
                 }
                 default: throw new ArgumentException("Third arg must be:\n'" +
@@ -55,15 +54,7 @@ public class ArgsParser {
         }
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public Constants.SearchType getSearchType() {
-        return searchType;
-    }
-
-    public String getTemplate() {
-        return template;
+    public ArgsStorage getArgsStorage() {
+        return argsStorage;
     }
 }

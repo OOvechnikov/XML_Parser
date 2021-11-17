@@ -12,6 +12,39 @@ public class ParserTest extends TestCase {
     private String[] args;
     private List<String> expected;
 
+    public void testNoSearchInput() throws ParserConfigurationException, IOException, SAXException {
+        args = new String[] {"-f", "src/main/resources/test-file.xml"};
+        expected = new ArrayList<>(List.of("/file-776194140.xml", "/dir-880176375/file-1073842118.java", "/dir-880176375/dir-2145307015/file-1498940214.xhtml"));
+
+        List<String> actual = new Parser(args).getResult();
+        assertEquals(expected, actual);
+    }
+
+    public void testExactSearchInput() throws ParserConfigurationException, IOException, SAXException {
+        args = new String[] {"-f", "src/main/resources/test-file.xml", "-s", "file-1498940214.xhtml"};
+        expected = new ArrayList<>(List.of("/dir-880176375/dir-2145307015/file-1498940214.xhtml"));
+
+        List<String> actual = new Parser(args).getResult();
+        assertEquals(expected, actual);
+    }
+
+    public void testSimpleSearchInput() throws ParserConfigurationException, IOException, SAXException {
+        args = new String[] {"-f", "src/main/resources/test-file.xml", "-s", "*.java"};
+        expected = new ArrayList<>(List.of("/dir-880176375/file-1073842118.java"));
+
+        List<String> actual = new Parser(args).getResult();
+        assertEquals(expected, actual);
+    }
+
+    public void testExtendedSearchInput() throws ParserConfigurationException, IOException, SAXException {
+        args = new String[] {"-f", "src/main/resources/test-file.xml", "-S", ".*?[a-z]{4}-\\d+\\.[a-z]+"};
+        expected = new ArrayList<>(List.of("/file-776194140.xml", "/dir-880176375/file-1073842118.java", "/dir-880176375/dir-2145307015/file-1498940214.xhtml"));
+
+        List<String> actual = new Parser(args).getResult();
+        assertEquals(expected, actual);
+    }
+
+
     public void testFullSearch() throws ParserConfigurationException, IOException, SAXException {
         args = new String[] {"-f", "src/main/resources/example.xml"};
         expected = new ArrayList<>();

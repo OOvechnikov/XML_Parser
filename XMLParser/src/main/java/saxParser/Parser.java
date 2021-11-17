@@ -27,8 +27,8 @@ public class Parser {
             result = new ArrayList<>();
             return;
         }
-        XMLHandler handler = new XMLHandler(new ComparatorFactory(argsParser).build());
-        SAXParserFactory.newInstance().newSAXParser().parse(argsParser.getFileName(), handler);
+        XMLHandler handler = new XMLHandler(new ComparatorFactory(argsParser.getArgsStorage()).build());
+        SAXParserFactory.newInstance().newSAXParser().parse(argsParser.getArgsStorage().getFileName(), handler);
         result = handler.getResult();
     }
 

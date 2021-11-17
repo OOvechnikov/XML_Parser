@@ -1,21 +1,23 @@
 package comparator;
 
+import args.ArgsStorage;
+
 public abstract class Comparator {
 
-    private String template = "";
+    private ArgsStorage argsStorage;
 
 
     public Comparator() {
     }
 
-    public Comparator(String template) {
-        this.template = template;
+    public Comparator(ArgsStorage argsStorage) {
+        this.argsStorage = argsStorage;
     }
 
 
     public abstract boolean compare(String fileName);
 
-    public String getTemplate() {
-        return template;
+    public ArgsStorage getArgsStorage() {
+        return argsStorage;
     }
 }

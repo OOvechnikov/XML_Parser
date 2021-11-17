@@ -1,22 +1,22 @@
 package comparator;
 
-import args.ArgsParser;
+import args.ArgsStorage;
 
 public class ComparatorFactory {
 
-    private final ArgsParser argsParser;
+    private final ArgsStorage argsStorage;
 
-    public ComparatorFactory(ArgsParser argsParser) {
-        this.argsParser = argsParser;
+    public ComparatorFactory(ArgsStorage argsStorage) {
+        this.argsStorage = argsStorage;
     }
 
 
     public Comparator build() {
-        switch (argsParser.getSearchType()) {
+        switch (argsStorage.getSearchType()) {
             case FULL: return new FullComparator();
-            case EXACT: return new ExactComparator(argsParser.getTemplate());
-            case SIMPLE: return new SimpleComparator(argsParser.getTemplate());
-            case EXTENDED: return new ExtendedComparator(argsParser.getTemplate());
+            case EXACT: return new ExactComparator(argsStorage);
+            case SIMPLE: return new SimpleComparator(argsStorage);
+            case EXTENDED: return new ExtendedComparator(argsStorage);
             default: return null;
         }
     }
